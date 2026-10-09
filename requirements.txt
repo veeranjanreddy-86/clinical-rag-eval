@@ -1,0 +1,12 @@
+# Runtime
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2.6
+pydantic-settings>=2.2
+# Dev / test
+pytest>=8
+httpx>=0.27
+ruff>=0.5
+# Optional providers (not needed for tests or the offline path):
+#   openai>=1.30                  -> CRAG_GENERATOR=openai|azure_openai, embedding_backend=openai
+#   sentence-transformers>=2.7    -> CRAG_RETRIEVER=embeddings

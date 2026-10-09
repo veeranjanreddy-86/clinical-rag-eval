@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "clinical-rag-eval"
+version = "0.1.0"
+description = "Retrieval-augmented QA over synthetic clinical policy documents, with guardrails and an evaluation harness."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Veeranjan Reddy" }]
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi>=0.110",
+  "uvicorn[standard]>=0.29",
+  "pydantic>=2.6",
+  "pydantic-settings>=2.2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27", "ruff>=0.5"]
+llm = ["openai>=1.30"]
+embeddings = ["sentence-transformers>=2.7"]
+
+[project.scripts]
+clinical-rag = "clinical_rag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient`:UserWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM", "RUF"]
+ignore = ["SIM905"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["B011"]
